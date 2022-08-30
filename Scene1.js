@@ -1,10 +1,9 @@
-import Card from '../helpers/card';
+
 
 class Scene1 extends Phaser.Scene {
   constructor() {
-    super('mainGame')
-  }  
-  
+    super('bootGame')
+  }   
   
   preload() {
     this.load.image('red', "assets/red.png");
@@ -17,6 +16,7 @@ class Scene1 extends Phaser.Scene {
     this.load.image('power', "assets/power.png");
   }
 
+  
   create() {
     this.dealText = this.add.text(75, 350, ['DEAL CARDS']).setFontSize(18).setFontFamily('Trebuchet MS').setColor('#00ffff').setInteractive();
 
@@ -24,12 +24,25 @@ class Scene1 extends Phaser.Scene {
 
 		this.card = this.add.image(300, 300, 'power').setScale(0.3, 0.3).setInteractive();
         this.input.setDraggable(this.card);
-
+		this.card = this.add.image(300, 300, 'shield').setScale(0.3, 0.3).setInteractive();
+        this.input.setDraggable(this.card);
+        
+    class Card {
+      constructor(scene) {
+          this.render = (x, y, sprite) => {
+              let card = scene.add.image(x, y, sprite).setScale(0.3, 0.3).setInteractive();
+              scene.input.setDraggable(card);
+              return card;
+          }
+      }
+    }
+    
 		this.dealCards = () => {
       for (let i = 0; i < 5; i++) {
         let playerCard = new Card(this);
         playerCard.render(475 + (i * 100), 650, 'shield');
       }
+
     }
 
 		this.dealText.on('pointerdown', function () {
