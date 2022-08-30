@@ -42,12 +42,28 @@ function create ()
 
   this.anims.create({
     key: 'right',
-    frames: this.anims.generateFrameNumbers('wizard', { start: 0, end: 3 }),
+    frames: this.anims.generateFrameNumbers('wizards', { start: 0, end: 3 }),
     frameRate: 10,
     repeat: -1
   });
+
+  cursors = this.input.keyboard.createCursorKeys();
 }
 
 function update ()
 {
+  if (cursors.right.isDown) {   
+    playerBlue.setVelocityX(150)
+    playerBlue.anims.play('right', true);
+  } else if (cursors.left.isDown) {
+    playerBlue.setVelocityX(-150)
+    playerBlue.anims.play('left', true);
+  } else {
+      playerBlue.setVelocityX(0);      
+  }
+
+  if (cursors.up.isDown)
+{
+    playerBlue.setVelocityY(-330);
+}
 }
